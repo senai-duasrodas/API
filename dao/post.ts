@@ -9,14 +9,11 @@ export default class Dao {
   async run(data: any) {
     try {
       const response = await this.runQuery(data);
-      
+      console.log('Query response: ', response);
       return response;
     } catch (err) {
       console.log('deu erro', err);
       throw err;
-    } finally {
-      console.log('end');
-      connection.end();
     }
   }
 
@@ -37,19 +34,18 @@ export default class Dao {
           WHERE ${this.fieldsMapping(USER_TABLE, data).where}`
           , (err: any, result: any) => {
             if (err) connection.rollback(() => {
-              console.log(err);
+              console.log('err', err);
               connection.end();
               reject(err);
             })
             console.log(result);
             connection.commit((err: any) => {
               if (err) connection.rollback(() => {
-                console.log(err);
+                console.log('err', err);
                 connection.end()
                 reject(err);
               });
             });
-            
             if (result.length === 0) resolve({ result: false });
             resolve({ result: true });
           });
@@ -70,8 +66,9 @@ export default class Dao {
   mapSqlFields(map: object, table: string, data: any) {
     const sqlFieldsArray = {
       select: `${Object.entries(map).map(([key, value]) => `${table}.${key} AS ${value}`).join(', ') || ''}`,
-      where: `${Object.entries(map).map(([key, value]) => `${table}.${key} = ${data[value]}`).join(' AND ')}`
+      where: `${Object.entries(map).map(([key, value]) => `${table}.${key} = '${data[value]}'`).join(' AND ')}`
     }
+    console.log('sql filds: ', sqlFieldsArray);
     return sqlFieldsArray;
   } 
 }

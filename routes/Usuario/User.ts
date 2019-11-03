@@ -6,6 +6,7 @@ const login = new LoginValidate()
 
 router.post("/", async (req: any, res: any) => {
   try {
+    console.log('Body / headers', req.body);
     const response = await login.run(req)
     res.status(200).send(response)
   } catch (err) {
