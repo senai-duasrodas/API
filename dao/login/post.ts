@@ -1,5 +1,4 @@
-import { Mysql } from '../database/mysql'
-import { SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION } from 'constants'
+import { Mysql } from '../../database/mysql'
 const connection = new Mysql('localhost', 'root', '', 'duasrodas').createConnection()
 
 const USER_TABLE = 'usuario'
@@ -9,10 +8,13 @@ export default class Dao {
   async run(data: any) {
     try {
       const response = await this.runQuery(data);
+
       console.log('Query response: ', response);
+
       return response;
     } catch (err) {
       console.log('deu erro', err);
+
       throw err;
     }
   }
@@ -27,48 +29,60 @@ export default class Dao {
             reject(err);
           })
         }
+        
         connection.query(/*sql*/`
           SELECT
             ${this.fieldsMapping(USER_TABLE, data).select}
           FROM ${USER_TABLE}
-          WHERE ${this.fieldsMapping(USER_TABLE, data).where}`
-          , (err: any, result: any) => {
+          WHERE ${this.fieldsMapping(USER_TABLE, data).where}
+        `, (err: any, result: any) => {
+          if (err) connection.rollback(() => {
+            console.log('err', err);
+            connection.end();
+            reject(err);
+          });
+          
+          connection.commit((err: any) => {
             if (err) connection.rollback(() => {
               console.log('err', err);
               connection.end();
               reject(err);
-            })
-            console.log(result);
-            connection.commit((err: any) => {
-              if (err) connection.rollback(() => {
-                console.log('err', err);
-                connection.end()
-                reject(err);
-              });
             });
-            if (result.length === 0) resolve({ result: false });
-            resolve({ result: true });
           });
+
+          const queryResult = JSON.stringify(result[0]);
+          
+
+          if (result.length === 0 || result === undefined) reject({ msg: 'usuário não encontrado!' });
+          resolve({ query: JSON.parse(queryResult) });
+        });
       });
     });
   }
 
   fieldsMapping(table : string, data: Array<object>) {
-    const map = {
+    const select = {
       numeroCracha: 'cracha',
       senha: 'senha',
+      nome: 'nome',
+      nivelAcesso: 'nivelAcesso'
     };
 
-    return this.mapSqlFields(map, table, data)
+    const where = {
+      numeroCracha: 'cracha',
+      senha: 'senha',
+    }
+
+    return this.mapSqlFields(select, where, table, data)
   }
 
 
-  mapSqlFields(map: object, table: string, data: any) {
+  mapSqlFields(select: object, where: object, table: string, data: any) {
     const sqlFieldsArray = {
-      select: `${Object.entries(map).map(([key, value]) => `${table}.${key} AS ${value}`).join(', ') || ''}`,
-      where: `${Object.entries(map).map(([key, value]) => `${table}.${key} = '${data[value]}'`).join(' AND ')}`
+      select: `${Object.entries(select).map(([key, value]) => `${table}.${key} AS ${value}`).join(', ') || ''}`,
+      where: `${Object.entries(where).map(([key, value]) => `${table}.${key} = '${data[value]}'`).join(' AND ')}`
     }
     console.log('sql filds: ', sqlFieldsArray);
     return sqlFieldsArray;
-  } 
+  }
 }

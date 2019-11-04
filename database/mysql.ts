@@ -28,7 +28,7 @@ export class Mysql {
 
       return connection;
     } catch (err) {
-      console.log(err);
+      console.log('connection error: ', err);
       return err
     }
   }
