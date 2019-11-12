@@ -8,8 +8,6 @@ const jwt = new Auth()
 
 router.post('/', async (req: any, res: any) => {
   try {
-    console.log('Body / headers', req.body);
-
     const response = await login.run(req);
     const token = await jwt.jwtToken(response)
 

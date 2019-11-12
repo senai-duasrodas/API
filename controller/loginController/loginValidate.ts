@@ -1,12 +1,14 @@
 import Dao from '../../dao/login/post';
+import {SSUtils} from '../../utils/utils';
 const _ = require('lodash');
+
 const commitData = new Dao();
+const isEmpty = new SSUtils();
 
 export default class LoginValidate {
 
   async run(event: any) {
     try {
-      console.log(event);
       const data = this.getData(event);
 
       this.validateData(data);
@@ -28,17 +30,22 @@ export default class LoginValidate {
   }
 
   validateData(data: any) {
+    console.log('data cru', data);
     if (_.isEmpty(data)) throw {
       statusCode: 400,
       message: 'Não existem dados!',
     };
+    
+    isEmpty.verify(data,  ['cracha', 'senha'], '');
 
-    if (!data.cracha) throw {
+    console.log('data editado', data);
+
+    if (data.cracha === '') throw {
       statusCode: 400,
       message: 'Crachá não informado',
     };
 
-    if (!data.senha) throw {
+    if (data.senha === '') throw {
       statusCode: 400,
       message: 'Senha não informado',
     };

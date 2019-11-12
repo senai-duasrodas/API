@@ -7,6 +7,7 @@ export default class Dao {
 
   async run(data: any) {
     try {
+      console.log('post data', data);
       const response = await this.runQuery(data);
 
       console.log('Query response: ', response);
@@ -26,7 +27,7 @@ export default class Dao {
           connection.rollback(() => {
             console.log(err);
             connection.end();
-            reject(err);
+            return reject(err);
           })
         }
         
@@ -39,22 +40,23 @@ export default class Dao {
           if (err) connection.rollback(() => {
             console.log('err', err);
             connection.end();
-            reject(err);
+            return reject(err);
           });
           
           connection.commit((err: any) => {
             if (err) connection.rollback(() => {
               console.log('err', err);
               connection.end();
-              reject(err);
+              return reject(err);
             });
           });
 
+          console.log('result', result);
+
           const queryResult = JSON.stringify(result[0]);
           
-
-          if (result.length === 0 || result === undefined) reject({ msg: 'usuário não encontrado!' });
-          resolve({ query: JSON.parse(queryResult) });
+          if (result.length === 0 || result === undefined) return reject({ msg: 'usuário não encontrado!' });
+          return resolve({ query: JSON.parse(queryResult) });
         });
       });
     });
