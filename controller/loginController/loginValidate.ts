@@ -1,9 +1,11 @@
-import Dao from '../../dao/login/post';
+import Retrieve from '../../dao/Retrieve';
 import {SSUtils} from '../../utils/utils';
 const _ = require('lodash');
 
-const commitData = new Dao();
+const commitData = new Retrieve();
 const isEmpty = new SSUtils();
+
+const TABLE = 'usuario';
 
 export default class LoginValidate {
 
@@ -13,8 +15,10 @@ export default class LoginValidate {
 
       this.validateData(data);
 
-      const result = await commitData.run(data);
+      const getQuery = this.getQuery(data)
 
+      const result = await commitData.run(getQuery);
+      console.log('cheguei até aqui');
       return result;
     } catch (err) {
       console.log(err);
@@ -40,7 +44,7 @@ export default class LoginValidate {
 
     console.log('data editado', data);
 
-    if (data.cracha === '') throw {
+    if (data.numeroCracha === '') throw {
       statusCode: 400,
       message: 'Crachá não informado',
     };
@@ -49,5 +53,14 @@ export default class LoginValidate {
       statusCode: 400,
       message: 'Senha não informado',
     };
+  }
+
+  getQuery(data: any) {
+    const post = [data.numeroCracha, data.senha];
+    const query = /*SQL*/`SELECT ${TABLE}.numeroCracha, ${TABLE}.nivelAcesso, ${TABLE}.nome, ${TABLE}.senha FROM ${TABLE} WHERE ${TABLE}.numeroCracha = ? AND ${TABLE}.senha = ?;`;
+
+    const dataQuery = { query, post, type: 'login' };
+
+    return dataQuery;
   }
 }

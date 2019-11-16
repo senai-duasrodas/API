@@ -17,4 +17,6 @@ app.get("/", (req: any, res: any) => {
   res.send("deu boa");
 });
 
-app.listen(3000);
+app.listen(3000, function () {
+  console.log('Ouvindo na porta 3000!');
+});
