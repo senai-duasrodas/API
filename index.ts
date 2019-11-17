@@ -10,8 +10,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const user = require("./routes/Usuario/User");
+const equipamento = require("./routes/Equipamento/Equipamento");
 
 app.use("/users", user);
+
+app.use("/equipamento",equipamento)
 
 app.get("/", (req: any, res: any) => {
   res.send("deu boa");

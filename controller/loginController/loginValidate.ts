@@ -20,6 +20,7 @@ export default class LoginValidate {
       const result = await commitData.run(getQuery);
       console.log('cheguei até aqui');
       return result;
+      
     } catch (err) {
       console.log(err);
 
@@ -63,4 +64,5 @@ export default class LoginValidate {
 
     return dataQuery;
   }
+
 }

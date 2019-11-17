@@ -47,6 +47,27 @@ router.post('/register', async (req: any, res: any) => {
   }
 });
 
+/**
+ * ROTA DE REGISTRO DE EQUIPAMENTO
+ */
+
+router.post('/equipamento', async (req: any, res: any) => {
+  try {
+    await jwt.jwtVerify(req)
+    console.log('DEU CERTO');
+    const response = await register.run(req);
+
+    console.log('user response', response);
+    
+    res.status(200).send({msg: response});
+  } catch (err) {
+    console.log('deu erro mesmo', err);
+
+    res.status(404).send({ statusCode: 404, err });
+  }
+});
+
+
 /** 
  *  ROTA PARA PEGAR TODOS OS USUÁRIOS CADASTRADOS
  * */ 

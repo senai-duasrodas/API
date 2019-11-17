@@ -19,7 +19,7 @@ export default class Retrieve {
 
   runQuery(data: any) {
     return new Promise((resolve, reject) => {
-      connection.query(data.query, data.post || '', (err: any, result: any) => {
+      connection.query(data.query,data.post || '', (err: any, result: any) => {
         if (err) return reject(err);
         
         console.log('result', result);
