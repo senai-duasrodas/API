@@ -1,13 +1,13 @@
-import Retrieve from '../../dao/Retrieve';
+import Create from '../../dao/Create';
 import {SSUtils} from '../../utils/utils';
 const _ = require('lodash');
 
-const commitData = new Retrieve();
+const commitData = new Create();
 const isEmpty = new SSUtils();
 
-const TABLE = 'usuario';
+const TABLE = 'tipoManutencao';
 
-export default class LoginValidate {
+export default class RegisterTipoOrdemValidate {
 
   async run(event: any) {
     try {
@@ -40,28 +40,20 @@ export default class LoginValidate {
       message: 'Não existem dados!',
     };
     
-    isEmpty.verify(data,  ['cracha', 'senha'], '');
-
-    console.log('data editado', data);
-
-    if (data.numeroCracha === '') throw {
+    isEmpty.verify(data,  ['orderType'], '');
+    
+    if (data.orderType === '') throw {
       statusCode: 400,
-      message: 'Crachá não informado',
-    };
-
-    if (data.senha === '') throw {
-      statusCode: 400,
-      message: 'Senha não informado',
+      message: 'Tipo de Ordem não informado',
     };
   }
 
   getQuery(data: any) {
-    const post = [data.numeroCracha, data.senha];
-    const query = /*SQL*/`SELECT ${TABLE}.numeroCracha, ${TABLE}.nivelAcesso, ${TABLE}.nome, ${TABLE}.senha FROM ${TABLE} WHERE ${TABLE}.numeroCracha = ? AND ${TABLE}.senha = ?;`;
+    const post = { tipoManutencao: data.orderType};
+    const query = /*sql*/`INSERT INTO ${TABLE} SET ?;`;
 
-    const dataQuery = { query, post, type: 'login' };
-
+    const dataQuery = { query, post, type: 'Tipo de Ordem' };
+    console.log(dataQuery);
     return dataQuery;
   }
-
 }
