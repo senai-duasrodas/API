@@ -1,13 +1,15 @@
 const { Router } = require("express");
-import LoginValidate from '../../controller/loginController/loginValidate'
-import registerUserValidate from '../../controller/registerUser/registerUserValidate'
-import getUsers from '../../controller/getUsers/getUsers'
+import LoginValidate from '../../controller/user/loginValidate'
+import RegisterUserValidate from '../../controller/user/registerUserValidate'
+import GetUsersValidate from '../../controller/user/getUsersValidate'
+import DeleteUserValidate from '../../controller/user/deleteUserValidate'
 import Auth from '../../auth/auth'
 
 const router = Router();
 const login = new LoginValidate();
-const register = new registerUserValidate();
-const getUser = new getUsers();
+const register = new RegisterUserValidate();
+const getUser = new GetUsersValidate();
+const deleteUser = new DeleteUserValidate();
 const jwt = new Auth();
 
 /** 
@@ -47,15 +49,15 @@ router.post('/register', async (req: any, res: any) => {
   }
 });
 
-/**
- * ROTA DE REGISTRO DE EQUIPAMENTO
- */
+/** 
+ *  ROTA PARA DELETAR USUÁRIO
+ * */ 
 
-router.post('/equipamento', async (req: any, res: any) => {
+router.delete('/:uid', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
     console.log('DEU CERTO');
-    const response = await register.run(req);
+    const response = await deleteUser.run(req);
 
     console.log('user response', response);
     
@@ -66,7 +68,6 @@ router.post('/equipamento', async (req: any, res: any) => {
     res.status(404).send({ statusCode: 404, err });
   }
 });
-
 
 /** 
  *  ROTA PARA PEGAR TODOS OS USUÁRIOS CADASTRADOS

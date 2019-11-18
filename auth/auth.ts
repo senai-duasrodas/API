@@ -14,8 +14,9 @@ export default class Auth {
   jwtVerify(token: any) {
     return new Promise(async (resolve, reject) => {
       const bearer: any = await this.getBearerToken(token)
-
+      console.log('bearer: ', bearer);
       jwt.verify(bearer, 'twoWheelsSenai', (err: any, authData: any) => {
+        console.log('Autenticação error:', err );
         if (err) reject('Erro ao autenticar!');
         resolve({body: authData});
       })

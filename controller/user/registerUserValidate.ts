@@ -42,7 +42,7 @@ export default class RegisterUserValidate {
       message: 'Não existem dados!',
     };
     
-    isEmpty.verify(data,  ['nome', 'cracha', 'senha', 'email', 'nivelAcesso'], '');
+    isEmpty.verify(data,  ['nome', 'numeroCracha', 'senha', 'funcao', 'email', 'nivelAcesso'], '');
 
     if (data.numeroCracha === '') throw {
       statusCode: 400,
@@ -59,6 +59,11 @@ export default class RegisterUserValidate {
       message: 'Nome não informado',
     };
 
+    if (data.funcao === '') throw {
+      statusCode: 400,
+      message: 'Função não informado',
+    };
+
     if (data.email === '') throw {
       statusCode: 400,
       message: 'E-mail não informado',
@@ -71,7 +76,7 @@ export default class RegisterUserValidate {
   }
 
   getQuery(data: any) {
-    const post = { numeroCracha: data.cracha, nivelAcesso: data.nivelAcesso, nome: data.nome, senha: data.senha, email: data.email };
+    const post = { numeroCracha: data.numeroCracha, nivelAcesso: data.nivelAcesso, nome: data.nome, senha: data.senha, email: data.email, funcao: data.funcao };
     const query = /*sql*/`INSERT INTO ${TABLE} SET ?;`;
 
     const dataQuery = { query, post, type: 'Usuário' };

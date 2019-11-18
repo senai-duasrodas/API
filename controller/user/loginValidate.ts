@@ -40,7 +40,7 @@ export default class LoginValidate {
       message: 'Não existem dados!',
     };
     
-    isEmpty.verify(data,  ['cracha', 'senha'], '');
+    isEmpty.verify(data,  ['numeroCracha', 'senha'], '');
 
     console.log('data editado', data);
 
