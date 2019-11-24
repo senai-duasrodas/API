@@ -15,6 +15,8 @@ const localInstalacao = require("./routes/LocalInstalacao/LocalInstalacao");
 const centroTrabalho = require("./routes/CentroTrabalho/CentroTrabalho");
 const tipoOrdem = require("./routes/TipoOrdem/TipoOrdem");
 const causaSintoma = require("./routes/CausaSintoma/CausaSintoma");
+const getEquipment = require("./routes/Equipamento/Equipamento");
+
 
 app.use("/users", user);
 app.use("/equipamento", equipamento)
