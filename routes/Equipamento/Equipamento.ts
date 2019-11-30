@@ -17,7 +17,7 @@ router.post('/', async (req: any, res: any) => {
     await jwt.jwtVerify(req)
     const response = await Equipment.run(req);
 
-    res.status(200).send({ response });
+    res.status(200).send( response );
   } catch (err) {
     console.log('deu erro mesmo', err);
 

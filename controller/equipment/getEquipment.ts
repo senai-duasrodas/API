@@ -24,7 +24,7 @@ export default class GetEquipment {
   getQuery() {
     const query = /*SQL*/`SELECT * FROM ${TABLE};`
 
-    const dataQuery = { query, type: 'usuários' };
+    const dataQuery = { query, type: 'Equipamentos' };
     
     return dataQuery;
   }

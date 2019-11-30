@@ -54,7 +54,7 @@ export default class RegisterEquipmentValidate {
   }
 
   getQuery(data: any) {
-    const post = { Setor_idSetor: data.description, descricao: data.equipamento_id};
+    const post = { Equipamento_idEquipamento: data.equipamento_id, DescricaoComponente: data.description};
     const query = /*sql*/`INSERT INTO ${TABLE} SET ?;`;
 
     const dataQuery = { query, post, type: 'Equipamento' };
