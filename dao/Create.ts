@@ -33,27 +33,27 @@ export default class Create {
         
         console.log('result', result);
 
-        const newResult: any = this.getQueryResult(result, data.type);
+        const response: any = this.getQueryResult(result, data.type);
 
         console.log('cheguei aqui');
         
-        if (newResult.err) return reject(newResult.err);
+        if (response.err) return reject(response.err);
         
-        return resolve(newResult);
+        return resolve(response);
       });
     });
   }
 
   getQueryError(err: any, type: string) {
     const error = JSON.parse(JSON.stringify(err));
-    if (!_.has(error, 'code')) return 'Ocorreu um erro na hora de salvar os dados :(';
-    if (error.code === 'ER_DUP_ENTRY') return `${type} já cadastrado!`;
+    if (!_.has(error, 'code')) return { status: 400, err: 'Ocorreu um erro na hora de salvar os dados' };
+    if (error.code === 'ER_DUP_ENTRY') return { status: 400, err: `${type} já cadastrado!` };
   }
 
   getQueryResult(res: any, type: any) {
     const result = JSON.parse(JSON.stringify(res));
-    if (_.isEmpty(result)) return { err: 'Ocorreu um erro na hora de salvar os dados :(' };
-    if (result && result.affectedRows > 0) return `${type} cadastrado com sucesso!`;
-    return { err: 'Ocorreu um erro na hora de salvar os dados :(' };
+    if (_.isEmpty(result)) return { status: 400, err: 'Ocorreu um erro na hora de salvar os dados' };
+    if (result && result.affectedRows > 0) return { status: 200, result: `${type} cadastrado com sucesso!` };
+    return { status: 400, err: 'Ocorreu um erro na hora de salvar os dados' };
   }
 }

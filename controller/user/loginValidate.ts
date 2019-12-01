@@ -1,4 +1,4 @@
-import Retrieve from '../../dao/Retrieve';
+import Retrieve from '../../dao/Get';
 import {SSUtils} from '../../utils/utils';
 const _ = require('lodash');
 
@@ -59,7 +59,7 @@ export default class LoginValidate {
     const post = [data.numeroCracha, data.senha];
     const query = /*SQL*/`SELECT ${TABLE}.numeroCracha, ${TABLE}.nivelAcesso, ${TABLE}.nome, ${TABLE}.senha FROM ${TABLE} WHERE ${TABLE}.numeroCracha = ? AND ${TABLE}.senha = ?;`;
 
-    const dataQuery = { query, post, type: 'login' };
+    const dataQuery = { query, post, type: 'Usuário' };
 
     return dataQuery;
   }

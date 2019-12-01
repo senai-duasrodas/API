@@ -4,9 +4,9 @@ export default class Auth {
 
   jwtToken(res: any) {
     return new Promise((resolve, reject) => {
-      jwt.sign(res.query, 'twoWheelsSenai', { expiresIn: '12h' }, (err: any, token: any) => {
+      jwt.sign(res.result, 'twoWheelsSenai', { expiresIn: '12h' }, (err: any, token: any) => {
         if (err) reject(err);
-        resolve(token);
+        resolve({status: 200, token });
       })
     })
   }
@@ -17,7 +17,7 @@ export default class Auth {
       console.log('bearer: ', bearer);
       jwt.verify(bearer, 'twoWheelsSenai', (err: any, authData: any) => {
         console.log('Autenticação error:', err );
-        if (err) reject('Erro ao autenticar!');
+        if (err) reject({status: 401, msg: 'Erro ao autenticar!', err: err});
         resolve({body: authData});
       })
     })

@@ -2,17 +2,16 @@ import Get from '../../dao/Get';
 
 const commitData = new Get();
 
-const TABLE = 'usuario';
+const TABLE = 'Equipamento';
 
-export default class GetUsersValidate {
+export default class GetEquipmentValidate {
 
   async run(event: any) {
     try {
       const getQuery = this.getQuery()
 
       const result = await commitData.run(getQuery);
-
-      console.log('get users result', result);
+      console.log('cheguei até aqui');
       return result;
     } catch (err) {
       console.log(err);
@@ -21,11 +20,12 @@ export default class GetUsersValidate {
     }
   }
 
+
   getQuery() {
-    const query = /*SQL*/`SELECT * FROM ${TABLE};`
+    const query = /*sql*/`SELECT * FROM ${TABLE};`;
 
-    const dataQuery = { query, type: 'usuários' };
-
+    const dataQuery = { query, type: 'Equipamento' };
+    console.log(dataQuery);
     return dataQuery;
   }
 }

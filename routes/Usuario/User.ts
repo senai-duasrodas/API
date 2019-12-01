@@ -3,6 +3,7 @@ import LoginValidate from '../../controller/user/loginValidate'
 import RegisterUserValidate from '../../controller/user/registerUserValidate'
 import GetUsersValidate from '../../controller/user/getUsersValidate'
 import DeleteUserValidate from '../../controller/user/deleteUserValidate'
+import UpdateUserValidate from '../../controller/user/updateUserValidate'
 import Auth from '../../auth/auth'
 
 const router = Router();
@@ -10,6 +11,7 @@ const login = new LoginValidate();
 const register = new RegisterUserValidate();
 const getUser = new GetUsersValidate();
 const deleteUser = new DeleteUserValidate();
+const updateUser = new UpdateUserValidate();
 const jwt = new Auth();
 
 /** 
@@ -19,13 +21,14 @@ const jwt = new Auth();
 router.post('/', async (req: any, res: any) => {
   try {
     const response = await login.run(req);
+    console.log('LOGIN RESPONSE', response);
     const token = await jwt.jwtToken(response)
 
-    res.status(200).send({ token: token });
+    res.status(200).send(token);
   } catch (err) {
     console.log('deu erro mesmo', err);
 
-    res.status(404).send({ statusCode: 404, err });
+    res.status(404).send(err);
   }
 });
 
@@ -41,11 +44,11 @@ router.post('/register', async (req: any, res: any) => {
 
     console.log('user response', response);
     
-    res.status(200).send({msg: response});
+    res.status(200).send(response);
   } catch (err) {
     console.log('deu erro mesmo', err);
 
-    res.status(404).send({ statusCode: 404, err });
+    res.status(404).send(err);
   }
 });
 
@@ -61,11 +64,11 @@ router.delete('/:uid', async (req: any, res: any) => {
 
     console.log('user response', response);
     
-    res.status(200).send({msg: response});
+    res.status(200).send(response);
   } catch (err) {
     console.log('deu erro mesmo', err);
 
-    res.status(404).send({ statusCode: 404, err });
+    res.status(404).send(err);
   }
 });
 
@@ -85,7 +88,7 @@ router.get('/get', async (req: any, res: any) => {
   } catch (err) {
     console.log('deu erro mesmo', err);
 
-    res.status(404).send({ statusCode: 404, err });
+    res.status(404).send(err);
   }
 });
 
@@ -102,8 +105,28 @@ router.post('/token', async (req: any, res: any) => {
   } catch (err) {
     console.log('Deu erro mesmo', err);
 
-    res.status(401).send({ statusCode: 401, err })
+    res.status(401).send(err)
   }
 })
+
+/** 
+ *  ROTA PARA ATUALIZAR O USUARIO
+ * */ 
+
+router.put('/:uid', async (req: any, res: any) => {
+  try {
+    await jwt.jwtVerify(req)
+    console.log('DEU CERTO');
+    const response = await updateUser.run(req);
+
+    console.log('user response', response);
+    
+    res.status(200).send(response);
+  } catch (err) {
+    console.log('deu erro mesmo', err);
+
+    res.status(404).send(err);
+  }
+});
 
 module.exports = router;

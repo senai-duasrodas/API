@@ -40,31 +40,31 @@ export default class RegisterEquipmentValidate {
       message: 'Não existem dados!',
     };
     
-    isEmpty.verify(data,  ['sector', 'equipment', 'superiorEquipment', 'description'], '');
+    isEmpty.verify(data,  ['Setor_idSetor', 'equipamento', 'equipamentoSuperior', 'descricao'], '');
     
-    if (data.sector === '') throw {
+    if (data.Setor_idSetor === '') throw {
       statusCode: 400,
       message: 'Local Instalação não informado',
     };
 
-    if (data.equipment === '') throw {
+    if (data.equipamento === '') throw {
       statusCode: 400,
       message: 'Equipamento não informado',
     };
 
-    if (data.superiorEquipment === '') throw {
+    if (data.equipamentoSuperior === '') throw {
       statusCode: 400,
       message: 'Equipamento Superior não informado',
     };
 
-    if (data.description === '') throw {
+    if (data.descricao === '') throw {
       statusCode: 400,
       message: 'Descrição não informada',
     };
   }
 
   getQuery(data: any) {
-    const post = { Setor_idSetor: data.sector, descricao: data.description, equipamento: data.equipment, equipamentoSuperior: data.superiorEquipment };
+    const post = { Setor_idSetor: data.Setor_idSetor, descricao: data.descricao, equipamento: data.equipamento, equipamentoSuperior: data.equipamentoSuperior };
     const query = /*sql*/`INSERT INTO ${TABLE} SET ?;`;
 
     const dataQuery = { query, post, type: 'Equipamento' };
