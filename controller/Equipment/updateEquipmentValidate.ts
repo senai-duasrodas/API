@@ -37,8 +37,8 @@ export default class UpdateEquipmentValidate {
   validateData(data: any) {
     console.log('data cru', data);
     if (_.isEmpty(data)) throw {
-      statusCode: 400,
-      message: 'Não existem dados!',
+      status: 404,
+      err: 'Não existem dados!',
     };
 
     if (data.id === '' || data.id === undefined) throw {

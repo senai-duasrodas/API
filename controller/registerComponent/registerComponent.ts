@@ -5,7 +5,7 @@ const _ = require('lodash');
 const commitData = new Create();
 const isEmpty = new SSUtils();
 
-const TABLE = 'Equipamento';
+const TABLE = 'Componente';
 
 export default class RegisterEquipmentValidate {
 
@@ -36,39 +36,30 @@ export default class RegisterEquipmentValidate {
   validateData(data: any) {
     console.log('data cru', data);
     if (_.isEmpty(data)) throw {
-      status: 404,
-      err: 'Não existem dados!',
+      statusCode: 400,
+      message: 'Não existem dados!',
     };
     
-    isEmpty.verify(data,  ['Setor_idSetor', 'equipamento', 'equipamentoSuperior', 'descricao'], '');
+    isEmpty.verify(data,  ['description', 'equipamento_id'], '');
     
-    if (data.Setor_idSetor === '') throw {
-      status: 404,
-      err: 'Local Instalação não informado',
+    if (data.sector === '') throw {
+      statusCode: 400,
+      message: 'Descrição do componente não informada',
     };
 
-    if (data.equipamento === '') throw {
-      status: 404,
-      err: 'Equipamento não informado',
-    };
-
-    if (data.equipamentoSuperior === '') throw {
-      status: 404,
-      err: 'Equipamento Superior não informado',
-    };
-
-    if (data.descricao === '') throw {
-      status: 404,
-      err: 'Descrição não informada',
+    if (data.equipment === '') throw {
+      statusCode: 400,
+      message: 'Equipamento não informado',
     };
   }
 
   getQuery(data: any) {
-    const post = { Setor_idSetor: data.Setor_idSetor, descricao: data.descricao, equipamento: data.equipamento, equipamentoSuperior: data.equipamentoSuperior };
+    const post = { Equipamento_idEquipamento: data.equipamento_id, DescricaoComponente: data.description};
     const query = /*sql*/`INSERT INTO ${TABLE} SET ?;`;
 
     const dataQuery = { query, post, type: 'Equipamento' };
     console.log(dataQuery);
     return dataQuery;
   }
+
 }
