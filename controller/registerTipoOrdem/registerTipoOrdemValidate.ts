@@ -15,10 +15,12 @@ export default class RegisterTipoOrdemValidate {
 
       this.validateData(data);
 
-      const getQuery = this.getQuery(data)
+      const getQuery = this.getQuery(data);
 
       const result = await commitData.run(getQuery);
+
       console.log('cheguei até aqui');
+
       return result;
     } catch (err) {
       console.log(err);

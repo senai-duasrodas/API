@@ -17,6 +17,7 @@ const tipoOrdem = require("./routes/TipoOrdem/TipoOrdem");
 const causaSintoma = require("./routes/CausaSintoma/CausaSintoma");
 const getEquipment = require("./routes/Equipamento/Equipamento");
 const componente = require("./routes/Componente/Componente");
+const ordemManutencao = require("./routes/OrdemManutencao/OrdemManutencao");
 
 app.use("/users", user);
 app.use("/equipamento", equipamento)
@@ -25,6 +26,7 @@ app.use("/centro-trabalho", centroTrabalho)
 app.use("/tipo-ordem", tipoOrdem)
 app.use("/causa-sintoma", causaSintoma)
 app.use("/componente", componente)
+app.use("/ordem-manutencao", ordemManutencao)
 
 
 app.get("/", (req: any, res: any) => {
