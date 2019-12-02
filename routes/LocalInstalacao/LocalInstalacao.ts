@@ -1,9 +1,15 @@
 const { Router } = require("express");
-import RegisterLocalInstalacaoValidate from '../../controller/registerLocalInstalacao/registerLocalInstalacaoValidate'
+import RegisterLocalInstalacaoValidate from '../../controller/localInstalacao/registerLocalInstalacaoValidate'
+import GetLocalInstalacaoValidate from '../../controller/localInstalacao/getLocalInstalacaoValidate'
+import DeleteLocalInstalacaoValidate from '../../controller/localInstalacao/deleteLocalInstalacaoValidate'
+import UpdateLocalInstalacaoValidate from '../../controller/localInstalacao/updateLocalInstalacaoValidate'
 import Auth from '../../auth/auth'
 
 const router = Router();
-const LocalInstalacao = new RegisterLocalInstalacaoValidate();
+const registerLocalInstalacao = new RegisterLocalInstalacaoValidate();
+const getLocalInstalacao = new GetLocalInstalacaoValidate();
+const deleteLocalInstalacao = new DeleteLocalInstalacaoValidate();
+const updateLocalInstalacao = new UpdateLocalInstalacaoValidate();
 const jwt = new Auth();
 
 /** 
@@ -13,13 +19,52 @@ const jwt = new Auth();
 router.post('/', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
-    const response = await LocalInstalacao.run(req);
+    const response = await registerLocalInstalacao.run(req);
 
-    res.status(200).send({ response });
+    res.status(200).send(response);
   } catch (err) {
     console.log('deu erro mesmo', err);
 
-    res.status(404).send({ statusCode: 404, err });
+    res.status(404).send(err);
+  }
+});
+
+router.get('/get', async (req: any, res: any) => {
+  try {
+    await jwt.jwtVerify(req)
+    const response = await getLocalInstalacao.run(req);
+
+    res.status(200).send(response);
+  } catch (err) {
+    console.log('deu erro mesmo', err);
+
+    res.status(404).send(err);
+  }
+});
+
+router.delete('/:uid', async (req: any, res: any) => {
+  try {
+    await jwt.jwtVerify(req)
+    const response = await deleteLocalInstalacao.run(req);
+
+    res.status(200).send(response);
+  } catch (err) {
+    console.log('deu erro mesmo', err);
+
+    res.status(404).send(err);
+  }
+});
+
+router.put('/:uid', async (req: any, res: any) => {
+  try {
+    await jwt.jwtVerify(req)
+    const response = await updateLocalInstalacao.run(req);
+
+    res.status(200).send(response);
+  } catch (err) {
+    console.log('deu erro mesmo', err);
+
+    res.status(404).send(err);
   }
 });
 

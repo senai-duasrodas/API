@@ -1,13 +1,13 @@
-import Create from '../../dao/Create';
+import Update from '../../dao/Update';
 import {SSUtils} from '../../utils/utils';
 const _ = require('lodash');
 
-const commitData = new Create();
+const commitData = new Update();
 const isEmpty = new SSUtils();
 
-const TABLE = 'Setor';
+const TABLE = 'CentroTrabalho';
 
-export default class RegisterLocalInstalacaoValidate {
+export default class UpdateEquipmentValidate {
 
   async run(event: any) {
     try {
@@ -29,6 +29,7 @@ export default class RegisterLocalInstalacaoValidate {
 
   getData(evt: any) {
     const data = evt.body || undefined;
+    data.id = evt.params.uid || undefined;
 
     return data;
   }
@@ -36,23 +37,26 @@ export default class RegisterLocalInstalacaoValidate {
   validateData(data: any) {
     console.log('data cru', data);
     if (_.isEmpty(data)) throw {
-      statusCode: 400,
-      message: 'Não existem dados!',
+      status: 404,
+      err: 'Não existem dados!',
     };
+
+    if (data.id === '' || data.id === undefined) throw {
+      status: 404,
+      err: 'Não foi possível encontrar o equipamento!'
+    }
     
-    isEmpty.verify(data,  ['sector'], '');
+    isEmpty.verify(data,  [], '');
     
-    if (data.sector === '') throw {
-      statusCode: 400,
-      message: 'Local Instalação não informado',
-    };
+    // TODO
   }
 
   getQuery(data: any) {
-    const post = { nome: data.sector};
-    const query = /*sql*/`INSERT INTO ${TABLE} SET ?;`;
+    const values = {  };
+    const where = data.id;
+    const query = /*sql*/`UPDATE ${TABLE} SET ? WHERE idEquipamento = ?;`;
 
-    const dataQuery = { query, post, type: 'Local Instalação' };
+    const dataQuery = { query, values, where, type: 'Centro de trabalho' };
     console.log(dataQuery);
     return dataQuery;
   }

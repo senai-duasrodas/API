@@ -1,9 +1,15 @@
 const { Router } = require("express");
-import RegisterCentroTrabalhoValidate from '../../controller/registerCentroTrabalho/registerCentroTrabalhoValidate'
+import RegisterCentroTrabalhoValidate from '../../controller/CentroTrabalho/registerCentroTrabalhoValidate'
+import GetCentroTrabalhoValidate from '../../controller/CentroTrabalho/getCentroTrabalho'
+import DeleteCentroTrabalhoValidate from '../../controller/CentroTrabalho/deleteCentroTrabalho'
+import UpdateCentroTrabalhoValidate from '../../controller/CentroTrabalho/updateCentroTrabalho'
 import Auth from '../../auth/auth'
 
 const router = Router();
-const CentroTrabalho = new RegisterCentroTrabalhoValidate();
+const registerCentroTrabalho = new RegisterCentroTrabalhoValidate();
+const getCentroTrabalho = new GetCentroTrabalhoValidate();
+const deleteCentroTrabalho = new DeleteCentroTrabalhoValidate();
+const updateCentroTrabalho = new UpdateCentroTrabalhoValidate();
 const jwt = new Auth();
 
 /** 
@@ -13,13 +19,64 @@ const jwt = new Auth();
 router.post('/', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
-    const response = await CentroTrabalho.run(req);
+    const response = await registerCentroTrabalho.run(req);
 
-    res.status(200).send({ response });
+    res.status(200).send(response);
   } catch (err) {
     console.log('deu erro mesmo', err);
 
-    res.status(404).send({ statusCode: 404, err });
+    res.status(404).send(err);
+  }
+});
+
+/** 
+ *  ROTA PARA LISTAR CENTRO DE TRABALHO
+ * */ 
+
+router.get('/get', async (req: any, res: any) => {
+  try {
+    await jwt.jwtVerify(req)
+    const response = await getCentroTrabalho.run(req);
+
+    res.status(200).send(response);
+  } catch (err) {
+    console.log('deu erro mesmo', err);
+
+    res.status(404).send(err);
+  }
+});
+
+/** 
+ *  ROTA PARA DELETAR CENTRO DE TRABALHO
+ * */ 
+
+router.delete('/:uid', async (req: any, res: any) => {
+  try {
+    await jwt.jwtVerify(req)
+    const response = await deleteCentroTrabalho.run(req);
+
+    res.status(200).send(response);
+  } catch (err) {
+    console.log('deu erro mesmo', err);
+
+    res.status(404).send(err);
+  }
+});
+
+/** 
+ *  ROTA PARA ALTERAR CENTRO DE TRABALHO
+ * */ 
+
+router.delete('/:uid', async (req: any, res: any) => {
+  try {
+    await jwt.jwtVerify(req)
+    const response = await updateCentroTrabalho.run(req);
+
+    res.status(200).send(response);
+  } catch (err) {
+    console.log('deu erro mesmo', err);
+
+    res.status(404).send(err);
   }
 });
 

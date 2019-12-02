@@ -26,7 +26,7 @@ export default class Delete {
       connection.query(data.query, data.post, (err: any, result: any) => {
         if (err) {
           console.log("erro: ", err)          
-          return reject('Ocorreu um erro na hora de deletar' + err);
+          return reject({ status: 400, err: 'Ocorreu um erro na hora de deletar', detailErr: err.sqlMessage });
         }
         
         console.log('result', result);
