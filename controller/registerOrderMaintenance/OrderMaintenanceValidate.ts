@@ -90,10 +90,6 @@ export default class RegisterTipoOrdemValidate {
         statusCode: 400,
         message: 'Status não informado',
     };
-    if (data.superiorEquipment === '') throw {
-        statusCode: 400,
-        message: 'Equipamento Superior não informado',
-    };
   }
 
   getQuery(data: any) {
@@ -101,7 +97,7 @@ export default class RegisterTipoOrdemValidate {
                     titulo: data.title, resumo: data.summary, descricao: data.description, inicioPlanejado: data.plannedStart, 
                     fimPlanejado: data.plannedEnd, requerParada: data.requireStop, dataEmissao: data.beginData, Equipamento_idEquipamento: data.equipment,
                     tipoManutencao_idtipoManutencao: data.typeMaintenance, Setor_idSetor: data.sector, Prioridade_idPrioridade: data.priority, 
-                    Status_idStatus: data.stats, equipamentoSuperior: data.superiorEquipment
+                    Status_idStatus: data.stats
                 };
     const query = /*sql*/`INSERT INTO ${TABLE} SET ?;`;
 
