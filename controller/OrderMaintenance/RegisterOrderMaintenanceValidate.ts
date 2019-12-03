@@ -101,7 +101,7 @@ export default class RegisterOrderMaintenanceValidate {
                     titulo: data.title, resumo: data.summary, descricao: data.description, inicioPlanejado: data.plannedStart, 
                     fimPlanejado: data.plannedEnd, requerParada: data.requireStop, dataEmissao: data.beginData, Equipamento_idEquipamento: data.equipment,
                     tipoManutencao_idtipoManutencao: data.typeMaintenance, Setor_idSetor: data.sector, Prioridade_idPrioridade: data.priority, 
-                    Status_idStatus: data.stats, equipamentoSuperior: data.superiorEquipment
+                    Status_idStatus: data.stats
                 };
     const query = /*sql*/`INSERT INTO ${TABLE} SET ?;`;
 
