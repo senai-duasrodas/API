@@ -5,7 +5,7 @@ const _ = require('lodash');
 const commitData = new Create();
 const isEmpty = new SSUtils();
 
-const TABLE = 'CentroTrabalho';
+const TABLE = 'Centro_Trabalho';
 
 export default class RegisterCentroTrabalhoValidate {
 
@@ -40,16 +40,16 @@ export default class RegisterCentroTrabalhoValidate {
       message: 'Não existem dados!',
     };
     
-    isEmpty.verify(data,  ['workCenter'], '');
+    isEmpty.verify(data,  ['descricao_centro_trabalho'], '');
     
-    if (data.workCenter === '') throw {
+    if (data.descricao_centro_trabalho === '') throw {
       statusCode: 400,
       message: 'Centro de trabalho não informado',
     };
   }
 
   getQuery(data: any) {
-    const post = { nome: data.workCenter};
+    const post = { descricao_centro_trabalho: data.descricao_centro_trabalho };
     const query = /*sql*/`INSERT INTO ${TABLE} SET ?;`;
 
     const dataQuery = { query, post, type: 'Centro de Trabalho' };

@@ -67,7 +67,7 @@ router.delete('/:uid', async (req: any, res: any) => {
  *  ROTA PARA ALTERAR CENTRO DE TRABALHO
  * */ 
 
-router.delete('/:uid', async (req: any, res: any) => {
+router.put('/:uid', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
     const response = await updateCentroTrabalho.run(req);

@@ -2,9 +2,9 @@ import Get from '../../dao/Get';
 
 const commitData = new Get();
 
-const TABLE = 'Centro_Trabalho';
+const TABLE = 'ordemservico';
 
-export default class GetCentroTrabalhoValidate {
+export default class GetOrderMaintenanceValidate {
 
   async run(event: any) {
     try {
@@ -24,7 +24,7 @@ export default class GetCentroTrabalhoValidate {
   getQuery() {
     const query = /*sql*/`SELECT * FROM ${TABLE};`;
 
-    const dataQuery = { query, type: 'Centro de trabalho' };
+    const dataQuery = { query, type: 'Ordem de manutenção' };
     console.log(dataQuery);
     return dataQuery;
   }

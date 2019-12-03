@@ -5,7 +5,7 @@ const _ = require('lodash');
 const commitData = new Update();
 const isEmpty = new SSUtils();
 
-const TABLE = 'CentroTrabalho';
+const TABLE = 'Centro_Trabalho';
 
 export default class UpdateEquipmentValidate {
 
@@ -46,15 +46,18 @@ export default class UpdateEquipmentValidate {
       err: 'Não foi possível encontrar o equipamento!'
     }
     
-    isEmpty.verify(data,  [], '');
+    isEmpty.verify(data,  ['descricao_centro_trabalho'], '');
     
-    // TODO
+    if (data.descricao_centro_trabalho === '') throw {
+      statusCode: 400,
+      message: 'Centro de trabalho não informado',
+    };
   }
 
   getQuery(data: any) {
-    const values = {  };
+    const values = { descricao_centro_trabalho: data.descricao_centro_trabalho };
     const where = data.id;
-    const query = /*sql*/`UPDATE ${TABLE} SET ? WHERE idEquipamento = ?;`;
+    const query = /*sql*/`UPDATE ${TABLE} SET ? WHERE idCentro_Trabalho = ?;`;
 
     const dataQuery = { query, values, where, type: 'Centro de trabalho' };
     console.log(dataQuery);

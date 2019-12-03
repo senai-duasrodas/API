@@ -2,7 +2,7 @@ import Delete from '../../dao/Delete';
 
 const commitData = new Delete();
 
-const TABLE = 'CentroTrabalho';
+const TABLE = 'Centro_Trabalho';
 
 export default class DeleteCentroTrabalhoValidate {
 
@@ -41,7 +41,7 @@ export default class DeleteCentroTrabalhoValidate {
 
   getQuery(data: any) {
     const post = [data];
-    const query = /*SQL*/`DELETE from ${TABLE} WHERE ${TABLE}.idEquipamento = ?`
+    const query = /*SQL*/`DELETE from ${TABLE} WHERE ${TABLE}.idCentro_Trabalho = ?`
 
     const dataQuery = { query, post, type: 'Centro de trabalho' };
 

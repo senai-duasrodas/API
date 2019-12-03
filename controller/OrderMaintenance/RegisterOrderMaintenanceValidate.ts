@@ -7,7 +7,7 @@ const isEmpty = new SSUtils();
 
 const TABLE = 'ordemServico';
 
-export default class RegisterTipoOrdemValidate {
+export default class RegisterOrderMaintenanceValidate {
 
   async run(event: any) {
     try {
@@ -36,63 +36,63 @@ export default class RegisterTipoOrdemValidate {
   validateData(data: any) {
     console.log('data cru', data);
     if (_.isEmpty(data)) throw {
-      statusCode: 400,
-      message: 'Não existem dados!',
+      status: 404,
+      err: 'Não existem dados!',
     };
     
     isEmpty.verify(data,  ['orderType'], '');
 
     if (data.title === '') throw {
-      statusCode: 400,
-      message: 'Título não informado',
+      status: 404,
+      err: 'Título não informado',
     };
     if (data.summary === '') throw {
-        statusCode: 400,
-        message: 'Resumo não informado',
+        status: 404,
+        err: 'Resumo não informado',
     };
     if (data.description === '') throw {
-        statusCode: 400,
-        message: 'Descrição não informado',
+        status: 404,
+        err: 'Descrição não informado',
     };
     if (data.plannedStart === '') throw {
-        statusCode: 400,
-        message: 'Inicio Planejado não informado',
+        status: 404,
+        err: 'Inicio Planejado não informado',
     };
     if (data.plannedEnd === '') throw {
-        statusCode: 400,
-        message: 'Fim Planejado  não informado',
+        status: 404,
+        err: 'Fim Planejado  não informado',
     };
     if (data.requireStop === '') throw {
-        statusCode: 400,
-        message: 'Requer parada não informado',
+        status: 404,
+        err: 'Requer parada não informado',
     };
     if (data.beginData === '') throw {
-        statusCode: 400,
-        message: 'Data de Inicio não informado',
+        status: 404,
+        err: 'Data de Inicio não informado',
     };
     if (data.equipment === '') throw {
-        statusCode: 400,
-        message: 'Equipamento não informado',
+        status: 404,
+        err: 'Equipamento não informado',
     };
     if (data.typeMaintenance === '') throw {
-        statusCode: 400,
-        message: 'Tipo Manutenção não informado',
+        status: 404,
+        err: 'Tipo Manutenção não informado',
     };
     if (data.sector === '') throw {
-        statusCode: 400,
-        message: 'Setor não informado',
+        status: 404,
+        err: 'Setor não informado',
     };
     if (data.priority === '') throw {
-        statusCode: 400,
-        message: 'Prioridade não informado',
+        status: 404,
+        err: 'Prioridade não informado',
     };
     if (data.stats === '') throw {
-        statusCode: 400,
-        message: 'Status não informado',
+        status: 404,
+        err: 'Status não informado',
     };
     if (data.superiorEquipment === '') throw {
-        statusCode: 400,
-        message: 'Equipamento Superior não informado',
+        status: 404,
+        err: 'Equipamento Superior não informado',
     };
   }
 
