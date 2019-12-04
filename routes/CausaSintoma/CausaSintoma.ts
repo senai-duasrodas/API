@@ -17,11 +17,11 @@ router.post('/causa', async (req: any, res: any) => {
     await jwt.jwtVerify(req)
     const response = await cause.run(req);
 
-    res.status(200).send({ response });
+    res.status(200).send(response);
   } catch (err) {
     console.log('deu erro mesmo', err);
 
-    res.status(404).send({ statusCode: 404, err });
+    res.status(404).send(err);
   }
 });
 
@@ -30,11 +30,11 @@ router.post('/sintoma', async (req: any, res: any) => {
     await jwt.jwtVerify(req)
     const response = await symptom.run(req);
 
-    res.status(200).send({ response });
+    res.status(200).send(response);
   } catch (err) {
     console.log('deu erro mesmo', err);
 
-    res.status(404).send({ statusCode: 404, err });
+    res.status(404).send(err);
   }
 });
 

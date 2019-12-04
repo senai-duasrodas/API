@@ -36,20 +36,20 @@ export default class RegisterCauseValidate {
   validateData(data: any) {
     console.log('data cru', data);
     if (_.isEmpty(data)) throw {
-      statusCode: 400,
-      message: 'Não existem dados!',
+      status: 400,
+      err: 'Não existem dados!',
     };
     
     isEmpty.verify(data,  ['symptom'], '');
     
-    if (data.symptom === '') throw {
-      statusCode: 400,
-      message: 'Sintoma não informado',
+    if (data.sintoma === '') throw {
+      status: 400,
+      err: 'Sintoma não informado',
     };
   }
 
   getQuery(data: any) {
-    const post = { descricaoSintomas: data.symptom};
+    const post = { descricaoSintomas: data.sintoma};
     const query = /*sql*/`INSERT INTO ${TABLE} SET ?;`;
 
     const dataQuery = { query, post, type: 'Sintoma' };
