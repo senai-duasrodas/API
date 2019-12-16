@@ -38,40 +38,40 @@ export default class RegisterUserValidate {
   validateData(data: any) {
     console.log('data cru', data);
     if (_.isEmpty(data)) throw {
-      statusCode: 400,
-      message: 'Não existem dados!',
+      status: 404,
+      err: 'Não existem dados!',
     };
     
     isEmpty.verify(data,  ['nome', 'numeroCracha', 'senha', 'funcao', 'email', 'nivelAcesso'], '');
 
     if (data.numeroCracha === '') throw {
-      statusCode: 400,
-      message: 'Crachá não informado',
+      status: 404,
+      err: 'Crachá não informado',
     };
 
     if (data.senha === '') throw {
-      statusCode: 400,
-      message: 'Senha não informada',
+      status: 404,
+      err: 'Senha não informada',
     };
 
     if (data.nome === '') throw {
-      statusCode: 400,
-      message: 'Nome não informado',
+      status: 404,
+      err: 'Nome não informado',
     };
 
     if (data.funcao === '') throw {
-      statusCode: 400,
-      message: 'Função não informado',
+      status: 404,
+      err: 'Função não informado',
     };
 
     if (data.email === '') throw {
-      statusCode: 400,
-      message: 'E-mail não informado',
+      status: 404,
+      err: 'E-mail não informado',
     };
 
     if (data.nivelAcesso === '') throw {
-      statusCode: 400,
-      message: 'nivel de acesso não informado',
+      status: 404,
+      err: 'nivel de acesso não informado',
     };
   }
 

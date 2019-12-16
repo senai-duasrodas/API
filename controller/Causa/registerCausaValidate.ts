@@ -5,7 +5,7 @@ const _ = require('lodash');
 const commitData = new Create();
 const isEmpty = new SSUtils();
 
-const TABLE = 'Sintomas';
+const TABLE = 'Causa';
 
 export default class RegisterCauseValidate {
 
@@ -36,23 +36,23 @@ export default class RegisterCauseValidate {
   validateData(data: any) {
     console.log('data cru', data);
     if (_.isEmpty(data)) throw {
-      status: 400,
+      status: 404,
       err: 'Não existem dados!',
     };
     
-    isEmpty.verify(data,  ['symptom'], '');
+    isEmpty.verify(data,  ['descricaoCausa'], '');
     
-    if (data.sintoma === '') throw {
-      status: 400,
-      err: 'Sintoma não informado',
+    if (data.descricaoCausa === '') throw {
+      status: 404,
+      err: 'Causa não informada',
     };
   }
 
   getQuery(data: any) {
-    const post = { descricaoSintomas: data.sintoma};
+    const post = { descricaoCausa: data.descricaoCausa};
     const query = /*sql*/`INSERT INTO ${TABLE} SET ?;`;
 
-    const dataQuery = { query, post, type: 'Sintoma' };
+    const dataQuery = { query, post, type: 'Causa' };
     console.log(dataQuery);
     return dataQuery;
   }

@@ -29,7 +29,7 @@ export default class UpdateUserValidate {
 
   getData(evt: any) {
     const data = evt.body || undefined;
-    data.id = evt.params.uid || undefined;
+    data.id = evt.params.id || undefined;
 
     return data;
   }
@@ -37,8 +37,8 @@ export default class UpdateUserValidate {
   validateData(data: any) {
     console.log('data cru', data);
     if (_.isEmpty(data)) throw {
-      statusCode: 400,
-      message: 'Não existem dados!',
+      status: 404,
+      err: 'Não existem dados!',
     };
 
     if (data.id === '' || data.id === undefined) throw {

@@ -36,20 +36,20 @@ export default class RegisterEquipmentValidate {
   validateData(data: any) {
     console.log('data cru', data);
     if (_.isEmpty(data)) throw {
-      statusCode: 400,
-      message: 'Não existem dados!',
+      status: 404,
+      err: 'Não existem dados!',
     };
     
     isEmpty.verify(data,  ['description', 'equipamento_id'], '');
     
     if (data.sector === '') throw {
-      statusCode: 400,
-      message: 'Descrição do componente não informada',
+      status: 404,
+      err: 'Descrição do componente não informada',
     };
 
     if (data.equipment === '') throw {
-      statusCode: 400,
-      message: 'Equipamento não informado',
+      status: 404,
+      err: 'Equipamento não informado',
     };
   }
 

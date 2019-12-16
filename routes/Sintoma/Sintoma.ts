@@ -1,44 +1,43 @@
 const { Router } = require("express");
-import RegisterTipoOrdem from '../../controller/TipoOrdem/registerTipoOrdemValidate'
-import GetTipoOrdem from '../../controller/TipoOrdem/getTipoOrdemValidate'
-import DeleteTipoOrdem from '../../controller/TipoOrdem/deleteTipoOrdemValidate'
-import UpdateTipoOrdem from '../../controller/TipoOrdem/updateTipoOrdemValidate'
+import RegisterSintomaValidate from '../../controller/Sintoma/registerSintomaValidate'
+import GetSintomaValidate from '../../controller/Sintoma/getSintomaValidate'
+import DeleteSintomaValidate from '../../controller/Sintoma/deleteSintomaValidate'
+import UpdateSintomaValidate from '../../controller/Sintoma/updateSintomavalidate'
 import Auth from '../../auth/auth'
 
 const router = Router();
-const TipoOrdem = new RegisterTipoOrdem();
-const getTipoOrdem = new GetTipoOrdem();
-const deleteTipoOrdem = new DeleteTipoOrdem();
-const updateTipoOrdem = new UpdateTipoOrdem();
+const registerSymptom = new RegisterSintomaValidate()
+const getSymptom = new GetSintomaValidate()
+const deleteSymptom = new DeleteSintomaValidate()
+const updateSymptom = new UpdateSintomaValidate()
 const jwt = new Auth();
 
 /** 
- *  ROTA DE CADASTRO DE TIPO DE ORDEM DE MANUTENÇÃO
+ *  ROTA DE CADASTRO DE SINTOMA
  * */ 
 
 router.post('/', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
-    const response = await TipoOrdem.run(req);
-
+    const response = await registerSymptom.run(req);
+    
     res.status(200).send(response);
   } catch (err) {
     console.log('deu erro mesmo', err);
-
+    
     res.status(404).send(err);
   }
 });
 
-
-router.get('/get', async (req: any, res: any) => {
+router.get('/', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
-    const response = await getTipoOrdem.run(req);
-
+    const response = await getSymptom.run(req);
+    
     res.status(200).send(response);
   } catch (err) {
     console.log('deu erro mesmo', err);
-
+    
     res.status(404).send(err);
   }
 });
@@ -46,12 +45,12 @@ router.get('/get', async (req: any, res: any) => {
 router.delete('/:id', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
-    const response = await deleteTipoOrdem.run(req);
-
+    const response = await deleteSymptom.run(req);
+    
     res.status(200).send(response);
   } catch (err) {
     console.log('deu erro mesmo', err);
-
+    
     res.status(404).send(err);
   }
 });
@@ -59,12 +58,12 @@ router.delete('/:id', async (req: any, res: any) => {
 router.put('/:id', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
-    const response = await updateTipoOrdem.run(req);
-
+    const response = await updateSymptom.run(req);
+    
     res.status(200).send(response);
   } catch (err) {
     console.log('deu erro mesmo', err);
-
+    
     res.status(404).send(err);
   }
 });

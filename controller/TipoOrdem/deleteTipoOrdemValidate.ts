@@ -2,9 +2,9 @@ import Delete from '../../dao/Delete';
 
 const commitData = new Delete();
 
-const TABLE = 'usuario';
+const TABLE = 'tipoManutencao';
 
-export default class DeleteUserValidate {
+export default class DeleteTipoOrdemValidate {
 
   async run(event: any) {
     try {
@@ -31,19 +31,19 @@ export default class DeleteUserValidate {
   }
 
   validateData(data: any) {
-    console.log('data cru', typeof data);
+    console.log('data cru', data);
     
     if (data === '' || !data) throw {
       status: 404,
-      err: 'Usuário não informado',
+      err: 'Tipo de ordem não informado',
     };
   }
 
   getQuery(data: any) {
     const post = [data];
-    const query = /*SQL*/`DELETE from ${TABLE} WHERE ${TABLE}.numeroCracha = ?`
+    const query = /*SQL*/`DELETE from ${TABLE} WHERE ${TABLE}.idtipoManutencao = ?`
 
-    const dataQuery = { query, post, type: 'Usuário' };
+    const dataQuery = { query, post, type: 'Tipo de ordem' };
 
     console.log(dataQuery);
 

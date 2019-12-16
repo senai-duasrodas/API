@@ -38,20 +38,20 @@ export default class RegisterTipoOrdemValidate {
   validateData(data: any) {
     console.log('data cru', data);
     if (_.isEmpty(data)) throw {
-      statusCode: 400,
-      message: 'Não existem dados!',
+      status: 404,
+      err: 'Não existem dados!',
     };
     
-    isEmpty.verify(data,  ['orderType'], '');
+    isEmpty.verify(data,  ['tipoOrdem'], '');
     
-    if (data.orderType === '') throw {
-      statusCode: 400,
-      message: 'Tipo de Ordem não informado',
+    if (data.tipoManutencao === '') throw {
+      status: 404,
+      err: 'Tipo de Ordem não informado',
     };
   }
 
   getQuery(data: any) {
-    const post = { tipoManutencao: data.orderType};
+    const post = { tipoManutencao: data.tipoManutencao };
     const query = /*sql*/`INSERT INTO ${TABLE} SET ?;`;
 
     const dataQuery = { query, post, type: 'Tipo de Ordem' };

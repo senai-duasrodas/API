@@ -36,8 +36,8 @@ export default class LoginValidate {
   validateData(data: any) {
     console.log('data cru', data);
     if (_.isEmpty(data)) throw {
-      statusCode: 400,
-      message: 'Não existem dados!',
+      status: 404,
+      err: 'Não existem dados!',
     };
     
     isEmpty.verify(data,  ['numeroCracha', 'senha'], '');
@@ -45,13 +45,13 @@ export default class LoginValidate {
     console.log('data editado', data);
 
     if (data.numeroCracha === '') throw {
-      statusCode: 400,
-      message: 'Crachá não informado',
+      status: 404,
+      err: 'Crachá não informado',
     };
 
     if (data.senha === '') throw {
-      statusCode: 400,
-      message: 'Senha não informado',
+      status: 404,
+      err: 'Senha não informado',
     };
   }
 

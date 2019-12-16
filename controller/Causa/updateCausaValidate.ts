@@ -5,9 +5,9 @@ const _ = require('lodash');
 const commitData = new Update();
 const isEmpty = new SSUtils();
 
-const TABLE = 'Equipamento';
+const TABLE = 'causa';
 
-export default class UpdateEquipmentValidate {
+export default class UpdateCausaValidate {
 
   async run(event: any) {
     try {
@@ -46,35 +46,20 @@ export default class UpdateEquipmentValidate {
       err: 'Não foi possível encontrar o equipamento!'
     }
     
-    isEmpty.verify(data,  ['Setor_idSetor', 'equipamento', 'equipamentoSuperior', 'descricao'], '');
+    isEmpty.verify(data,  ['descricaoCausa'], '');
     
-    if (data.Setor_idSetor === '') throw {
+    if (data.descricaoCausa === '') throw {
       status: 404,
-      err: 'Local Instalação não informado',
-    };
-
-    if (data.equipamento === '') throw {
-      status: 404,
-      err: 'Equipamento não informado',
-    };
-
-    if (data.equipamentoSuperior === '') throw {
-      status: 400,
-      err: 'Equipamento Superior não informado',
-    };
-
-    if (data.descricao === '') throw {
-      status: 400,
-      err: 'Descrição não informada',
+      err: 'Causa não informado',
     };
   }
 
   getQuery(data: any) {
-    const values = { Setor_idSetor: data.Setor_idSetor, descricao: data.descricao, equipamento: data.equipamento, equipamentoSuperior: data.equipamentoSuperior };
+    const values = { descricaoCausa: data.descricaoCausa };
     const where = data.id;
-    const query = /*sql*/`UPDATE ${TABLE} SET ? WHERE idEquipamento = ?;`;
+    const query = /*sql*/`UPDATE ${TABLE} SET ? WHERE idCausa = ?;`;
 
-    const dataQuery = { query, values, where, type: 'Equipamento' };
+    const dataQuery = { query, values, where, type: 'Causa' };
     console.log(dataQuery);
     return dataQuery;
   }

@@ -42,7 +42,7 @@ router.get('/get', async (req: any, res: any) => {
   }
 });
 
-router.delete('/:uid', async (req: any, res: any) => {
+router.delete('/:id', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
     const response = await deleteLocalInstalacao.run(req);
@@ -55,7 +55,7 @@ router.delete('/:uid', async (req: any, res: any) => {
   }
 });
 
-router.put('/:uid', async (req: any, res: any) => {
+router.put('/:id', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
     const response = await updateLocalInstalacao.run(req);

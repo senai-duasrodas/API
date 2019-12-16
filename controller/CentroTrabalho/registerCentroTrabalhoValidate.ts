@@ -36,15 +36,15 @@ export default class RegisterCentroTrabalhoValidate {
   validateData(data: any) {
     console.log('data cru', data);
     if (_.isEmpty(data)) throw {
-      statusCode: 400,
-      message: 'Não existem dados!',
+      status: 404,
+      err: 'Não existem dados!',
     };
     
     isEmpty.verify(data,  ['descricao_centro_trabalho'], '');
     
     if (data.descricao_centro_trabalho === '') throw {
-      statusCode: 400,
-      message: 'Centro de trabalho não informado',
+      status: 404,
+      err: 'Centro de trabalho não informado',
     };
   }
 

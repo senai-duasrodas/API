@@ -1,13 +1,13 @@
-import Update from '../../dao/Update';
+import Create from '../../dao/Create';
 import {SSUtils} from '../../utils/utils';
 const _ = require('lodash');
 
-const commitData = new Update();
+const commitData = new Create();
 const isEmpty = new SSUtils();
 
-const TABLE = 'Setor';
+const TABLE = 'Sintomas';
 
-export default class UpdateLocalInstalacaoValidate {
+export default class RegisterSintomaValidate {
 
   async run(event: any) {
     try {
@@ -29,7 +29,6 @@ export default class UpdateLocalInstalacaoValidate {
 
   getData(evt: any) {
     const data = evt.body || undefined;
-    data.id = evt.params.id || undefined;
 
     return data;
   }
@@ -37,29 +36,23 @@ export default class UpdateLocalInstalacaoValidate {
   validateData(data: any) {
     console.log('data cru', data);
     if (_.isEmpty(data)) throw {
-      status: 404,
+      status: 400,
       err: 'Não existem dados!',
     };
-
-    if (data.id === '' || data.id === undefined) throw {
-      status: 404,
-      err: 'Não foi possível encontrar o local de instalação!'
-    }
     
-    isEmpty.verify(data,  ['nome'], '');
+    isEmpty.verify(data,  ['descricaoSintomas'], '');
     
-    if (data.nome === '') throw {
-      status: 404,
-      err: 'Local Instalação não informado',
+    if (data.descricaoSintomas === '') throw {
+      status: 400,
+      err: 'Sintoma não informado',
     };
   }
 
   getQuery(data: any) {
-    const values = { nome: data.nome };
-    const where = data.id;
-    const query = /*sql*/`UPDATE ${TABLE} SET ? WHERE ${TABLE}.idSetor = ?;`;
+    const post = { descricaoSintomas: data.descricaoSintomas};
+    const query = /*sql*/`INSERT INTO ${TABLE} SET ?;`;
 
-    const dataQuery = { query, values, where, type: 'Local de instalação' };
+    const dataQuery = { query, post, type: 'Sintoma' };
     console.log(dataQuery);
     return dataQuery;
   }

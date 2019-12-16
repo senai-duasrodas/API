@@ -25,7 +25,7 @@ export default class DeleteCentroTrabalhoValidate {
   }
 
   getData(evt: any) {
-    const data = evt.params.uid || undefined;
+    const data = evt.params.id || undefined;
 
     return data;
   }

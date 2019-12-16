@@ -56,7 +56,7 @@ router.post('/register', async (req: any, res: any) => {
  *  ROTA PARA DELETAR USUÁRIO
  * */ 
 
-router.delete('/:uid', async (req: any, res: any) => {
+router.delete('/:id', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
     console.log('DEU CERTO');
@@ -113,7 +113,7 @@ router.post('/token', async (req: any, res: any) => {
  *  ROTA PARA ATUALIZAR O USUARIO
  * */ 
 
-router.put('/:uid', async (req: any, res: any) => {
+router.put('/:id', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
     console.log('DEU CERTO');

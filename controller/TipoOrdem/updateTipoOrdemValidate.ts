@@ -5,7 +5,7 @@ const _ = require('lodash');
 const commitData = new Update();
 const isEmpty = new SSUtils();
 
-const TABLE = 'Equipamento';
+const TABLE = 'tipoManutencao';
 
 export default class UpdateEquipmentValidate {
 
@@ -43,38 +43,23 @@ export default class UpdateEquipmentValidate {
 
     if (data.id === '' || data.id === undefined) throw {
       status: 404,
-      err: 'Não foi possível encontrar o equipamento!'
+      err: 'Não foi possível encontrar o tipo de ordem!'
     }
     
-    isEmpty.verify(data,  ['Setor_idSetor', 'equipamento', 'equipamentoSuperior', 'descricao'], '');
+    isEmpty.verify(data,  ['tipoOrdem'], '');
     
-    if (data.Setor_idSetor === '') throw {
+    if (data.tipoManutencao === '') throw {
       status: 404,
-      err: 'Local Instalação não informado',
-    };
-
-    if (data.equipamento === '') throw {
-      status: 404,
-      err: 'Equipamento não informado',
-    };
-
-    if (data.equipamentoSuperior === '') throw {
-      status: 400,
-      err: 'Equipamento Superior não informado',
-    };
-
-    if (data.descricao === '') throw {
-      status: 400,
-      err: 'Descrição não informada',
+      err: 'Tipo de Ordem não informado',
     };
   }
 
   getQuery(data: any) {
-    const values = { Setor_idSetor: data.Setor_idSetor, descricao: data.descricao, equipamento: data.equipamento, equipamentoSuperior: data.equipamentoSuperior };
+    const values = { tipoManutencao: data.tipoManutencao };
     const where = data.id;
-    const query = /*sql*/`UPDATE ${TABLE} SET ? WHERE idEquipamento = ?;`;
+    const query = /*sql*/`UPDATE ${TABLE} SET ? WHERE ${TABLE}.idtipoManutencao = ?;`;
 
-    const dataQuery = { query, values, where, type: 'Equipamento' };
+    const dataQuery = { query, values, where, type: 'Tipo de ordem' };
     console.log(dataQuery);
     return dataQuery;
   }

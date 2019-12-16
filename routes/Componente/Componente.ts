@@ -15,11 +15,11 @@ router.post('/', async (req: any, res: any) => {
     await jwt.jwtVerify(req)
     const response = await registerComponent.run(req);
 
-    res.status(200).send({ response });
+    res.status(200).send(response);
   } catch (err) {
     console.log('deu erro mesmo', err);
 
-    res.status(404).send({ statusCode: 404, err });
+    res.status(404).send(err);
   }
 });
 

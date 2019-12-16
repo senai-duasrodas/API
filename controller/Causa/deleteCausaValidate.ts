@@ -1,13 +1,10 @@
-import Create from '../../dao/Create';
-import {SSUtils} from '../../utils/utils';
-const _ = require('lodash');
+import Delete from '../../dao/Delete';
 
-const commitData = new Create();
-const isEmpty = new SSUtils();
+const commitData = new Delete();
 
-const TABLE = 'Causa';
+const TABLE = 'causa';
 
-export default class RegisterCauseValidate {
+export default class DeleteCausaValidate {
 
   async run(event: any) {
     try {
@@ -28,32 +25,29 @@ export default class RegisterCauseValidate {
   }
 
   getData(evt: any) {
-    const data = evt.body || undefined;
+    const data = evt.params.id || undefined;
 
     return data;
   }
 
   validateData(data: any) {
     console.log('data cru', data);
-    if (_.isEmpty(data)) throw {
-      status: 404,
-      err: 'Não existem dados!',
-    };
     
-    isEmpty.verify(data,  ['cause'], '');
-    
-    if (data.causa === '') throw {
+    if (data === '' || !data) throw {
       status: 404,
       err: 'Causa não informada',
     };
   }
 
   getQuery(data: any) {
-    const post = { descricaoCausa: data.causa};
-    const query = /*sql*/`INSERT INTO ${TABLE} SET ?;`;
+    const post = [data];
+    const query = /*SQL*/`DELETE from ${TABLE} WHERE ${TABLE}.idCausa = ?`
 
     const dataQuery = { query, post, type: 'Causa' };
+
     console.log(dataQuery);
+
     return dataQuery;
   }
+
 }

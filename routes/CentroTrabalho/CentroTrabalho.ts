@@ -50,7 +50,7 @@ router.get('/get', async (req: any, res: any) => {
  *  ROTA PARA DELETAR CENTRO DE TRABALHO
  * */ 
 
-router.delete('/:uid', async (req: any, res: any) => {
+router.delete('/:id', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
     const response = await deleteCentroTrabalho.run(req);
@@ -67,7 +67,7 @@ router.delete('/:uid', async (req: any, res: any) => {
  *  ROTA PARA ALTERAR CENTRO DE TRABALHO
  * */ 
 
-router.put('/:uid', async (req: any, res: any) => {
+router.put('/:id', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
     const response = await updateCentroTrabalho.run(req);

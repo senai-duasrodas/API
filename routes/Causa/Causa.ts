@@ -1,25 +1,25 @@
 const { Router } = require("express");
-import RegisterTipoOrdem from '../../controller/TipoOrdem/registerTipoOrdemValidate'
-import GetTipoOrdem from '../../controller/TipoOrdem/getTipoOrdemValidate'
-import DeleteTipoOrdem from '../../controller/TipoOrdem/deleteTipoOrdemValidate'
-import UpdateTipoOrdem from '../../controller/TipoOrdem/updateTipoOrdemValidate'
+import RegisterCauseValidate from '../../controller/Causa/registerCausaValidate'
+import GetCauseValidate from '../../controller/Causa/getCausaValidate'
+import DeleteCauseValidate from '../../controller/Causa/deleteCausaValidate'
+import UpdateCauseValidate from '../../controller/Causa/updateCausaValidate'
 import Auth from '../../auth/auth'
 
 const router = Router();
-const TipoOrdem = new RegisterTipoOrdem();
-const getTipoOrdem = new GetTipoOrdem();
-const deleteTipoOrdem = new DeleteTipoOrdem();
-const updateTipoOrdem = new UpdateTipoOrdem();
+const registerCause = new RegisterCauseValidate()
+const getCause = new GetCauseValidate()
+const deleteCause = new DeleteCauseValidate()
+const updateCause = new UpdateCauseValidate()
 const jwt = new Auth();
 
 /** 
- *  ROTA DE CADASTRO DE TIPO DE ORDEM DE MANUTENÇÃO
+ *  ROTA DE CADASTRO DE CAUSA
  * */ 
 
 router.post('/', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
-    const response = await TipoOrdem.run(req);
+    const response = await registerCause.run(req);
 
     res.status(200).send(response);
   } catch (err) {
@@ -29,11 +29,10 @@ router.post('/', async (req: any, res: any) => {
   }
 });
 
-
-router.get('/get', async (req: any, res: any) => {
+router.get('/', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
-    const response = await getTipoOrdem.run(req);
+    const response = await getCause.run(req);
 
     res.status(200).send(response);
   } catch (err) {
@@ -46,7 +45,7 @@ router.get('/get', async (req: any, res: any) => {
 router.delete('/:id', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
-    const response = await deleteTipoOrdem.run(req);
+    const response = await deleteCause.run(req);
 
     res.status(200).send(response);
   } catch (err) {
@@ -59,7 +58,7 @@ router.delete('/:id', async (req: any, res: any) => {
 router.put('/:id', async (req: any, res: any) => {
   try {
     await jwt.jwtVerify(req)
-    const response = await updateTipoOrdem.run(req);
+    const response = await updateCause.run(req);
 
     res.status(200).send(response);
   } catch (err) {
