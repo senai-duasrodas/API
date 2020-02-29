@@ -20,11 +20,17 @@ const jwt = new Auth();
 
 router.post('/', async (req: any, res: any) => {
   try {
-    const response = await login.run(req);
+    const response : any = await login.run(req);
     console.log('LOGIN RESPONSE', response);
-    const token = await jwt.jwtToken(response)
+    
+    const token : any = await jwt.jwtToken(response)
 
-    res.status(200).send(token);
+    const { result } = response
+    delete result.senha;
+    
+    const loginResponse : any = { ...token, ...result }
+
+    res.status(200).send(loginResponse);
   } catch (err) {
     console.log('deu erro mesmo', err);
 
